@@ -1,0 +1,10 @@
+{
+  "amount": 13.50,
+  "created":"2023-09-02 10:00:00.123Z",
+  "description": "Despesa 1234",
+  "expense_date": "2023-09-02 10:00:00.123Z",
+  "id":"asde21edsa",
+  "latitude": "81.121212",
+  "longitude": "41.232323",
+  "payment_receipt": "https://imobiliarias.superlogica.com/hc/article_attachments/360081669333/comp..png"
+}
