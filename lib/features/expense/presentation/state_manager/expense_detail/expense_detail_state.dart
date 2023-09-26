@@ -8,3 +8,18 @@ sealed class ExpenseDetailState extends Equatable {
 }
 
 final class ExpenseDetailInitial extends ExpenseDetailState {}
+
+final class ExpenseDetailSaved extends ExpenseDetailState {}
+
+final class ExpenseDetailDeleted extends ExpenseDetailState {}
+
+final class ExpenseDetailLoading extends ExpenseDetailState {}
+
+final class ExpenseDetailWarning extends ExpenseDetailState {
+  final String message;
+
+  const ExpenseDetailWarning({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
