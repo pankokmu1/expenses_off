@@ -22,13 +22,19 @@ void main() {
   group('Update expense =>', () {
     test('should update expense', () async {
       when(() => mockRepository.updateExpense(
-            expenseUpdate: expenseUpdateCompletedSample,
+            expense: expenseUpdateCompletedSample.toMap(),
+            expenseId: 'exID21',
           )).thenAnswer((_) async {});
 
-      await updateExpense(expenseUpdate: expenseUpdateCompletedSample);
+      await updateExpense(
+        expenseUpdate: expenseUpdateCompletedSample.toMap(),
+        expenseId: 'exID21',
+        isItPending: true,
+      );
 
       verify(() => mockRepository.updateExpense(
-            expenseUpdate: expenseUpdateCompletedSample,
+            expense: expenseUpdateCompletedSample.toMap(),
+            expenseId: 'exID21',
           )).called(1);
       verifyNoMoreInteractions(mockRepository);
     });

@@ -1,37 +1,40 @@
-import 'package:expenses_off/features/expense/domain/entities/expense_update.dart';
+import 'package:expenses_off/features/expense/presentation/models/expense_update_model.dart';
 
-ExpenseUpdate get expenseUpdateCompletedSample => ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateCompletedSample => ExpenseUpdateModel(
       amount: 13.50,
       expenseDate: DateTime.utc(2023, 09, 02, 10, 0, 0, 123),
       description: 'Despesa 1234',
       latitude: 123,
       longitude: 12,
     );
-ExpenseUpdate get expenseUpdateWithoutAmountSample => ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateWithoutAmountSample => ExpenseUpdateModel(
       expenseDate: DateTime.utc(2023, 09, 02, 10, 0, 0, 123),
       description: 'Despesa 1234',
       latitude: 123,
       longitude: 12,
     );
-ExpenseUpdate get expenseUpdateWithoutExpenseDateSample => const ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateWithoutExpenseDateSample =>
+    const ExpenseUpdateModel(
       amount: 13.50,
       description: 'Despesa 1234',
       latitude: 123,
       longitude: 12,
     );
-ExpenseUpdate get expenseUpdateWithoutDescriptionSample => ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateWithoutDescriptionSample =>
+    ExpenseUpdateModel(
       amount: 13.50,
       expenseDate: DateTime.utc(2023, 09, 02, 10, 0, 0, 123),
       latitude: 123,
       longitude: 12,
     );
-ExpenseUpdate get expenseUpdateWithoutLatitudeSample => ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateWithoutLatitudeSample => ExpenseUpdateModel(
       amount: 13.50,
       expenseDate: DateTime.utc(2023, 09, 02, 10, 0, 0, 123),
       description: 'Despesa 1234',
       longitude: 12,
     );
-ExpenseUpdate get expenseUpdateWithoutLongitudeSample => ExpenseUpdate(
+ExpenseUpdateModel get expenseUpdateWithoutLongitudeSample =>
+    ExpenseUpdateModel(
       amount: 13.50,
       expenseDate: DateTime.utc(2023, 09, 02, 10, 0, 0, 123),
       description: 'Despesa 1234',

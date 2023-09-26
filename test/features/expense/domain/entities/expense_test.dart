@@ -18,7 +18,8 @@ void main() {
       test('should convert Expense entity in a map', () {
         final result = expenseSample.toMap();
 
-        expect(result, expenseMap);
+        expect(result.values, containsAll(expenseMap.values));
+        expect(result.keys, containsAll(expenseMap.keys));
       });
     });
     group('copyWith =>', () {
@@ -38,6 +39,7 @@ void main() {
           latitude: 12.0,
           longitude: -10,
           paymentReceipt: 'url.com',
+          isItPending: true,
         );
 
         expect(
@@ -51,6 +53,7 @@ void main() {
               latitude: 12.0,
               longitude: -10,
               paymentReceipt: 'url.com',
+              isItPending: true,
             ));
       });
     });

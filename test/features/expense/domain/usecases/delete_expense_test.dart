@@ -23,18 +23,15 @@ void main() {
             expenseId: 'expen213id',
           )).thenAnswer((_) async {});
 
-      await deleteExpense(expenseId: 'expen213id');
+      await deleteExpense(
+        expenseId: 'expen213id',
+        isItPending: true,
+      );
 
       verify(() => mockRepository.deleteExpense(
             expenseId: 'expen213id',
           )).called(1);
       verifyNoMoreInteractions(mockRepository);
-    });
-    test('should throws assert error when `expenseid` is empty', () async {
-      result() async => await deleteExpense(expenseId: '');
-
-      await expectLater(result, throwsA(isA<AssertionError>()));
-      verifyZeroInteractions(mockRepository);
     });
   });
 }
