@@ -5,9 +5,12 @@ class DeleteExpense {
 
   DeleteExpense({required this.repository});
 
-  Future<void> call({required String expenseId}) {
-    assert(expenseId.isNotEmpty);
-
-    return repository.deleteExpense(expenseId: expenseId);
+  Future<void> call({
+    required String expenseId,
+    required bool isItPending,
+  }) {
+    return repository.deleteExpense(
+      expenseId: expenseId,
+    );
   }
 }
