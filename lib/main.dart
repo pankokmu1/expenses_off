@@ -1,4 +1,4 @@
-import 'package:expenses_off/features/expense/presentation/pages/expenses_page.dart';
+import 'package:expenses_off/features/authentication/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
         useMaterial3: true,
       ),
-      home: const ExpensesPage(),
+      home: const LoginPage(),
     );
   }
 }
