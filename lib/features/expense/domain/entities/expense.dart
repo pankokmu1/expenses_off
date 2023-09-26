@@ -1,23 +1,25 @@
+import 'package:equatable/equatable.dart';
 import 'package:expenses_off/core/utils/date_parse.dart';
-import 'package:expenses_off/features/expense/domain/entities/expense_summary.dart';
 
-class Expense extends ExpenseSummary {
-  final String paymentReceipt;
-  final DateTime expenseDate;
-  final double? latitude, longitude;
+class Expense extends Equatable {
+  final double? amount, latitude, longitude;
+  final DateTime created, expenseDate;
+  final String id, description;
+  final bool isItPending;
+  final String? paymentReceipt;
 
   const Expense({
-    required super.amount,
-    required super.created,
-    required super.description,
-    required super.id,
+    required this.amount,
+    required this.created,
+    required this.description,
+    required this.id,
     required this.expenseDate,
     required this.latitude,
     required this.longitude,
     required this.paymentReceipt,
+    this.isItPending = false,
   });
 
-  @override
   Map<String, dynamic> toMap() {
     return {
       'amount': amount,
@@ -25,6 +27,7 @@ class Expense extends ExpenseSummary {
       'description': description,
       'expense_date': dateTimeToStringWithZone(expenseDate),
       'id': id,
+      'is_it_peding': isItPending,
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
       'payment_receipt': paymentReceipt,
@@ -38,19 +41,20 @@ class Expense extends ExpenseSummary {
       description: map['description'],
       expenseDate: stringToDateAndTimeZone(map['expense_date']),
       id: map['id'],
+      isItPending: map['is_it_peding'] ?? false,
       latitude: double.parse(map['latitude']),
       longitude: double.parse(map['longitude']),
       paymentReceipt: map['payment_receipt'],
     );
   }
 
-  @override
   Expense copyWith({
     double? amount,
     DateTime? created,
     String? description,
     DateTime? expenseDate,
     String? id,
+    bool? isItPending,
     double? latitude,
     double? longitude,
     String? paymentReceipt,
@@ -61,6 +65,7 @@ class Expense extends ExpenseSummary {
       description: description ?? this.description,
       expenseDate: expenseDate ?? this.expenseDate,
       id: id ?? this.id,
+      isItPending: isItPending ?? this.isItPending,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
       paymentReceipt: paymentReceipt ?? this.paymentReceipt,
@@ -74,6 +79,7 @@ class Expense extends ExpenseSummary {
         description,
         expenseDate,
         id,
+        isItPending,
         latitude,
         longitude,
         paymentReceipt,
