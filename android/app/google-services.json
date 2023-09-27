@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "598663851122",
+    "project_id": "expenseoff",
+    "storage_bucket": "expenseoff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598663851122:android:c333f230e42bc7884c26eb",
+        "android_client_info": {
+          "package_name": "com.expenses_off.expenses_off"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4g6yYZ5YxSHCX-seUDg-Og2vlPTNnrCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:expenses_off/core/failures/network_failures.dart';
+import 'package:expenses_off/core/utils/error_utils.dart';
 import 'package:expenses_off/features/expense/domain/entities/expense.dart';
 import 'package:expenses_off/features/expense/domain/usecases/create_expense.dart';
 import 'package:expenses_off/features/expense/domain/usecases/delete_expense.dart';
@@ -37,11 +38,14 @@ class ExpenseDetailCubit extends Cubit<ExpenseDetailState> {
         isItPending: isItPending,
       );
       emit(ExpenseDetailSaved());
-    } on NoConnectionFailure catch (e) {
+    } on NoConnectionFailure catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } on DioError catch (e) {
+    } on DioError catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } catch (e) {
+    } catch (e, s) {
+      dispatchError(e, s);
       emit(const ExpenseDetailWarning(message: 'unexpected error'));
     }
   }
@@ -69,11 +73,14 @@ class ExpenseDetailCubit extends Cubit<ExpenseDetailState> {
       expense = expense?.copyWith(id: expenseId) ??
           newExpense.copyWith(id: expenseId);
       emit(ExpenseDetailSaved());
-    } on NoConnectionFailure catch (e) {
+    } on NoConnectionFailure catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } on DioError catch (e) {
+    } on DioError catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } catch (e) {
+    } catch (e, s) {
+      dispatchError(e, s);
       emit(const ExpenseDetailWarning(message: 'unexpected error'));
     }
   }
@@ -85,11 +92,14 @@ class ExpenseDetailCubit extends Cubit<ExpenseDetailState> {
         isItPending: isItPending,
       );
       emit(ExpenseDetailDeleted());
-    } on NoConnectionFailure catch (e) {
+    } on NoConnectionFailure catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } on DioError catch (e) {
+    } on DioError catch (e, s) {
+      dispatchError(e, s);
       emit(ExpenseDetailWarning(message: e.message));
-    } catch (e) {
+    } catch (e, s) {
+      dispatchError(e, s);
       emit(const ExpenseDetailWarning(message: 'unexpected error'));
     }
   }
