@@ -53,9 +53,11 @@ void main() {
       verifyNoMoreInteractions(mockDio);
     });
     test('should return expenses', () async {
-      when(() => mockDio.get<List<Map<String, dynamic>>>('$url/?page=1'))
+      when(() => mockDio.get<Map<String, dynamic>>('$url/?page=1'))
           .thenAnswer((_) async => Response(
-                data: [expenseMap],
+                data: {
+                  "items": [expenseMap]
+                },
                 statusCode: 200,
                 requestOptions: RequestOptions(path: ''),
               ));
@@ -63,11 +65,11 @@ void main() {
       final result = await remoteDatasource.getExpenses(page: 1);
 
       expect(result, [expenseMap]);
-      verify(() => mockDio.get<List<Map<String, dynamic>>>('$url/?page=1'));
+      verify(() => mockDio.get<Map<String, dynamic>>('$url/?page=1'));
       verifyNoMoreInteractions(mockDio);
     });
     test('should return empty list when api return null', () async {
-      when(() => mockDio.get<List<Map<String, dynamic>>>('$url/?page=1'))
+      when(() => mockDio.get<Map<String, dynamic>>('$url/?page=1'))
           .thenAnswer((_) async => Response(
                 data: null,
                 statusCode: 200,
@@ -77,7 +79,7 @@ void main() {
       final result = await remoteDatasource.getExpenses(page: 1);
 
       expect(result, []);
-      verify(() => mockDio.get<List<Map<String, dynamic>>>('$url/?page=1'));
+      verify(() => mockDio.get<Map<String, dynamic>>('$url/?page=1'));
       verifyNoMoreInteractions(mockDio);
     });
     test('should update expense', () async {
