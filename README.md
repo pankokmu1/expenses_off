@@ -17,7 +17,7 @@ Siga estas etapas para instalar e configurar o aplicativo em sua máquina.
 3. **Acesse o Diretório**: Navegue até o diretório do projeto:
 
    ```bash
-   cd seu-projeto
+   cd expenses_off
    ```
 
 4. **Instale as Dependências**: Execute o seguinte comando para instalar todas as dependências necessárias:
