@@ -7,23 +7,23 @@ abstract class ExpensesState extends Equatable {
   List<Object> get props => [];
 }
 
-final class ExpensesLoaded extends ExpensesState {
+class ExpensesLoaded extends ExpensesState {
   final List<Expense> expenses;
 
   const ExpensesLoaded({required this.expenses});
 }
 
-final class ExpensePaymentReceiptLoaded extends ExpensesState {
+class ExpensePaymentReceiptLoaded extends ExpensesState {
   final String paymentReceipt;
 
   const ExpensePaymentReceiptLoaded({required this.paymentReceipt});
 }
 
-final class ExpensesLoading extends ExpensesState {}
+class ExpensesLoading extends ExpensesState {}
 
-final class ExpensesEmpty extends ExpensesState {}
+class ExpensesEmpty extends ExpensesState {}
 
-final class ExpensesError extends ExpensesState {
+class ExpensesError extends ExpensesState {
   final String message;
 
   const ExpensesError({required this.message});
@@ -32,7 +32,7 @@ final class ExpensesError extends ExpensesState {
   List<Object> get props => [message];
 }
 
-final class ExpensesWarning extends ExpensesState {
+class ExpensesWarning extends ExpensesState {
   final String message;
 
   const ExpensesWarning({required this.message});

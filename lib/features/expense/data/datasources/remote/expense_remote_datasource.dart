@@ -30,16 +30,17 @@ class ExpenseRemoteDatasource implements IExpenseRemoteDatasource {
   Future<List<Map<String, dynamic>>> getExpenses({
     required int page,
   }) async {
-    final response =
-        await _dio.get<List<Map<String, dynamic>>>('$_url/?page=$page');
-    return response.data ?? [];
+    final response = await _dio.get<Map<String, dynamic>>('$_url/?page=$page');
+    return response.data?['items'] != null
+        ? List<Map<String, dynamic>>.from(response.data!['items'])
+        : [];
   }
 
   @override
-  Future<void> getPaymentReceipt({
+  Future<String> getPaymentReceipt({
     required String expenseId,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    return 'https://contabilidadenoce.com.br/wp-content/uploads/2020/09/Recibo.png';
   }
 
   @override

@@ -6,7 +6,7 @@ class CreateExpense {
 
   CreateExpense({required this.repository});
 
-  Future<void> call({required Expense expense}) {
+  Future<String> call({required Expense expense}) {
     return repository.creteExpense(expense: expense);
   }
 }

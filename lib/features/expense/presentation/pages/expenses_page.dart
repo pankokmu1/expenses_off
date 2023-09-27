@@ -1,4 +1,5 @@
 import 'package:expenses_off/core/configs/dependency_injection.dart';
+import 'package:expenses_off/features/expense/presentation/pages/expense_detail_page.dart';
 import 'package:expenses_off/features/expense/presentation/state_manager/expenses/expenses_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,23 +27,30 @@ class _ExpensesPageState extends State<ExpensesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return [
-          SliverAppBar(
-            title: const Text('Expenses'),
-            expandedHeight: 200,
-            pinned: true,
-            forceElevated: innerBoxIsScrolled,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Expenses'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ExpenseDetailPage(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.add),
           )
-        ];
-      },
+        ],
+      ),
       body: BlocConsumer<ExpensesCubit, ExpensesState>(
+        bloc: bloc,
         listenWhen: (previous, current) => current is ExpensesWarning,
         listener: (BuildContext context, ExpensesState state) {
           if (state is ExpensesWarning) {
             final snackBar = SnackBar(
               content: Text(state.message),
+              duration: const Duration(seconds: 2),
             );
 
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -62,9 +70,58 @@ class _ExpensesPageState extends State<ExpensesPage> {
                 childrenDelegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final expense = expenses.elementAt(index);
-                    return ExpansionTile(
-                      key: Key(expense.id),
-                      title: Text(expense.description),
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(12.0), // Borda arredondada
+                        ),
+                        child: ExpansionTile(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                12.0), // Borda arredondada
+                          ),
+                          key: Key(expense.id),
+                          title: Text(expense.description),
+                          subtitle: Text(expense.amount.toString()),
+                          leading: IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => ExpenseDetailPage(
+                                      expense: expense,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(Icons.edit)),
+                          onExpansionChanged: (value) {
+                            if (expense.paymentReceipt == null) {
+                              bloc.getPaymentReceipt(expenseId: expense.id);
+                            }
+                          },
+                          children: [
+                            BlocListener<ExpensesCubit, ExpensesState>(
+                              bloc: bloc,
+                              listenWhen: (previous, current) =>
+                                  current is ExpensePaymentReceiptLoaded,
+                              listener: (context, state) {
+                                if (state is ExpensePaymentReceiptLoaded) {
+                                  expense.copyWith(
+                                      paymentReceipt: state.paymentReceipt);
+                                }
+                              },
+                              child: SizedBox(
+                                  height: 250,
+                                  width: 300,
+                                  child: expense.paymentReceipt != null
+                                      ? Image.network(expense.paymentReceipt!)
+                                      : const CircularProgressIndicator()),
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   },
                   childCount: expenses.length,

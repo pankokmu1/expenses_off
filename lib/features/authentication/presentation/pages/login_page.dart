@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:expenses_off/core/configs/config.dart';
+import 'package:expenses_off/core/widgets/e_text_field.dart';
 import 'package:expenses_off/features/expense/presentation/pages/expenses_page.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +15,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   int activeIndex = 0;
-
   bool loading = false;
+  TextEditingController userNameTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
 
   @override
   void initState() {
@@ -33,9 +36,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
+      key: UniqueKey(),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
+          key: UniqueKey(),
           children: [
             const SizedBox(
               height: 50,
@@ -44,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 350,
               child: Stack(children: [
                 Positioned(
+                  key: UniqueKey(),
                   top: 0,
                   left: 0,
                   right: 0,
@@ -61,6 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Positioned(
+                  key: UniqueKey(),
                   top: 0,
                   left: 0,
                   right: 0,
@@ -76,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Positioned(
+                  key: UniqueKey(),
                   top: 0,
                   left: 0,
                   right: 0,
@@ -91,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Positioned(
+                  key: UniqueKey(),
                   top: 0,
                   left: 0,
                   right: 0,
@@ -110,77 +119,17 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(
               height: 40,
             ),
-            TextField(
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(0.0),
-                labelText: 'Username',
-                hintText: 'Username',
-                labelStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14.0,
-                ),
-                prefixIcon: const Icon(
-                  Icons.person,
-                  color: Colors.black,
-                  size: 18,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 2),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                floatingLabelStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.black, width: 1.5),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
+            ETextField(
+              labelText: 'Username',
+              controller: userNameTextController,
             ),
             const SizedBox(
               height: 20,
             ),
-            TextField(
+            ETextField(
+              labelText: 'Password',
               obscureText: true,
-              cursorColor: Colors.black,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(0.0),
-                labelText: 'Password',
-                hintText: 'Password',
-                hintStyle: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14.0,
-                ),
-                labelStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.0,
-                  fontWeight: FontWeight.w400,
-                ),
-                prefixIcon: const Icon(
-                  Icons.key,
-                  color: Colors.black,
-                  size: 18,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade200, width: 2),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                floatingLabelStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(color: Colors.black, width: 1.5),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
+              controller: passwordTextController,
             ),
             const SizedBox(
               height: 30,
@@ -193,11 +142,13 @@ class _LoginPageState extends State<LoginPage> {
                 await Dio().post<Map<String, dynamic>>(
                     'https://go-bd-api-3iyuzyysfa-uc.a.run.app/api/collections/users/auth-with-password',
                     data: {
-                      "identity": "xfqBre",
-                      "password": "rxHBgm9USl",
+                      "identity": userNameTextController.text,
+                      "password": passwordTextController.text,
                     }).then((response) {
-                  // final account = response.data!;
+                  final account = response.data!;
+                  globalToken = account['token'];
                   //TODO: add account data in a global state manager
+
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const ExpensesPage(),

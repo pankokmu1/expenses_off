@@ -1,7 +1,7 @@
 import '../entities/expense.dart';
 
 abstract class IExpenseRepository {
-  Future<void> creteExpense({required Expense expense});
+  Future<String> creteExpense({required Expense expense});
   Future<void> deleteExpense({required String expenseId});
   Future<List<Expense>> expenses({required int page});
   Future<String> paymentReceipt({required String expenseId});

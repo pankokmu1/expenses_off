@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:expenses_off/core/utils/date_parse.dart';
 
 class ExpenseUpdateModel extends Equatable {
@@ -6,12 +7,12 @@ class ExpenseUpdateModel extends Equatable {
     this.amount,
     this.description,
     this.expenseDate,
-    this.longitude,
-    this.latitude,
+    this.paymentReceipt,
   });
 
-  final double? amount, latitude, longitude;
+  final double? amount;
   final String? description;
+  final String? paymentReceipt;
   final DateTime? expenseDate;
 
   Map<String, dynamic> toMap() {
@@ -25,12 +26,10 @@ class ExpenseUpdateModel extends Equatable {
     if (expenseDate != null) {
       map.addAll({'expense_date': dateTimeToStringWithZone(expenseDate!)});
     }
-    if (latitude != null) {
-      map.addAll({'latitude': latitude.toString()});
+    if (paymentReceipt != null) {
+      map.addAll({'payment_receipt': paymentReceipt.toString()});
     }
-    if (longitude != null) {
-      map.addAll({'longitude': longitude.toString()});
-    }
+
     return map;
   }
 
@@ -39,7 +38,32 @@ class ExpenseUpdateModel extends Equatable {
         amount,
         description,
         expenseDate,
-        latitude,
-        longitude,
+        paymentReceipt,
       ];
+
+  ExpenseUpdateModel copyWith({
+    double? amount,
+    String? description,
+    String? paymentReceipt,
+    DateTime? expenseDate,
+  }) {
+    return ExpenseUpdateModel(
+      amount: amount ?? this.amount,
+      description: description ?? this.description,
+      paymentReceipt: paymentReceipt ?? this.paymentReceipt,
+      expenseDate: expenseDate ?? this.expenseDate,
+    );
+  }
+
+  bool get hasData =>
+      amount != null ||
+      paymentReceipt != null ||
+      expenseDate != null ||
+      (description != null && description!.isNotEmpty);
+  bool get isCompleted =>
+      amount != null &&
+      description != null &&
+      paymentReceipt != null &&
+      expenseDate != null &&
+      description!.isNotEmpty;
 }

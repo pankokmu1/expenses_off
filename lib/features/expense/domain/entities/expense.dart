@@ -36,7 +36,8 @@ class Expense extends Equatable {
 
   factory Expense.fromMap(Map<String, dynamic> map) {
     return Expense(
-      amount: map['amount'],
+      amount:
+          map['amount'] is double ? map['amount'] : map['amount'].toDouble(),
       created: stringToDateAndTimeZone(map['expense_date']),
       description: map['description'],
       expenseDate: stringToDateAndTimeZone(map['expense_date']),
