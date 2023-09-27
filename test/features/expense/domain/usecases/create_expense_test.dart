@@ -22,10 +22,11 @@ void main() {
   group('Create expense =>', () {
     test('should create expense', () async {
       when(() => mockRepository.creteExpense(expense: expenseSample))
-          .thenAnswer((_) async {});
+          .thenAnswer((_) async => 'url.com');
 
-      await createExpense(expense: expenseSample);
+      final result = await createExpense(expense: expenseSample);
 
+      expect(result, 'url.com');
       verify(() => mockRepository.creteExpense(expense: expenseSample))
           .called(1);
       verifyNoMoreInteractions(mockRepository);
