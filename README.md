@@ -34,7 +34,7 @@ Siga estas etapas para instalar e configurar o aplicativo em sua máquina.
 
 ## Executando Testes
 
-Este projeto inclui testes unitários para garantir a estabilidade do código. Para executar os testes, use o seguinte comando:
+Este projeto inclui testes unitários para garantir a estabilidade do código. Para executar os testes, use o comando:
 
 ```bash
 flutter test
