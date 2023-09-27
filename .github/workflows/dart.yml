@@ -1,25 +1,20 @@
-name: Dart
-
+name: Flutter workflow
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
-
+    branches:
+      - main
 jobs:
-  build:
+  test:
+    name: Check the source code
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-      - uses: steebchen/flutter@v1.1.0
-
-      - name: Install dependencies
+      - uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: '3.13.5'
+      - name: Install packages
         run: flutter pub get
-
-      - name: Analyze project source
-        run: dart analyze
-
-      - name: Run tests
+      - name: Linter
+        run: flutter analyze
+      - name: Test
         run: flutter test
